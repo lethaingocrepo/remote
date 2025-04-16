@@ -3,11 +3,20 @@
 ```yaml
 name: Windows RDP
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      ngrok_token:
+        description: 'Enter your Ngrok Auth Token'
+        required: true
+        type: string
 
 jobs:
   build:
     runs-on: windows-latest
+
+    env:
+      NGROK_AUTH_TOKEN: ${{ github.event.inputs.ngrok_token }}
 
     steps:
     - name: Enable RDP
